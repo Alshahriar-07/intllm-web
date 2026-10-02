@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Install INTLLM — Windows, macOS &amp; Linux</title>
-  <meta name="description" content="One-line install commands and setup instructions for INTLLM across Windows, macOS, and Linux." />
+  <title>Install INTLLM v1.0.2 — Windows, macOS &amp; Linux</title>
+  <meta name="description" content="Official installation methods and setup commands for INTLLM v1.0.2 across Windows, macOS, and Linux." />
   <link rel="canonical" href="https://intllm.vercel.app/install" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="INTLLM" />
-  <meta property="og:title" content="Install INTLLM — Windows, macOS &amp; Linux" />
-  <meta property="og:description" content="One-line install commands and setup instructions for INTLLM." />
+  <meta property="og:title" content="Install INTLLM v1.0.2 — Windows, macOS &amp; Linux" />
+  <meta property="og:description" content="Official installation methods and setup commands for INTLLM v1.0.2." />
   <meta property="og:url" content="https://intllm.vercel.app/install" />
   <meta property="og:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
 
@@ -49,11 +49,18 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a class="nav-link" href="/info">Info</a>
-        <a class="nav-link" href="/download">Download</a>
-        <a class="nav-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">
+        <a class="nav-link" href="/#features">Features</a>
+        <a class="nav-link" href="/#agent">Agent</a>
+        <a class="nav-link" href="/#models">Models</a>
+        <a class="nav-link" href="/info">Docs</a>
+        <a class="nav-link" href="/info#release">Release</a>
+        <a class="nav-link" href="/license">License</a>
+        <a class="nav-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer" title="Source Repository on GitHub">
           <span>GitHub</span>
           <svg class="nav-github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        </a>
+        <a class="btn btn--primary" href="/download" style="padding: 6px 14px; font-size: 13px;">
+          <span>Download</span>
         </a>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme">
@@ -67,9 +74,13 @@
   <main id="main">
     <div class="container container--narrow" style="padding-top: 56px; padding-bottom: 96px;">
       <p class="section-label reveal-up">Quickstart</p>
+      <div class="hero-status-pill reveal-up" style="margin-bottom: 12px; display: inline-flex;">
+        <span class="status-dot"></span>
+        <span>INTLLM v1.0.2 — Production Release</span>
+      </div>
       <h1 class="hero-title reveal-up" style="margin-bottom: 12px;">Install INTLLM</h1>
       <p class="prose reveal-up">
-        Official release installers download, verify checksums via <code>SHA256.txt</code>, and register the <code>intllm</code> CLI in your environment.
+        Official release installers download, verify checksums via <code>SHA256.txt</code>, configure the application, and register the <code>intllm</code> CLI in your environment.
       </p>
 
       <!-- Terminal widget -->
@@ -95,16 +106,34 @@
         </div>
 
         <div class="terminal-footer-notes">
-          <span id="terminal-platform-note">Windows 10/11 x64 · <a href="/download">Download</a></span>
-          <span>SHA256 verified</span>
+          <span id="terminal-platform-note">Windows 10/11 x64 · <a href="/download">Download Options</a></span>
+          <span>SHA256 verified · PolyForm Noncommercial 1.0.0</span>
         </div>
       </div>
 
-      <!-- Manual install section -->
-      <div class="reveal-up">
-        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Manual / pip installation</h2>
+      <!-- Windows Recommended Installer Section -->
+      <div class="reveal-up" style="margin-bottom: 36px;">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Windows Installer (Recommended)</h2>
         <p class="prose" style="margin-bottom: 16px;">
-          For developers running within customized Python virtual environments (Python 3.11+):
+          For most Windows 10/11 x64 users, download and run <code>INTLLM-Setup.exe</code>. It installs INTLLM per-user under <code>%LOCALAPPDATA%\Programs\INTLLM</code>, creates Start Menu shortcuts, and registers the <code>intllm</code> command in your PATH:
+        </p>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <a class="btn btn--primary" href="https://github.com/Alshahriar-07/INTLLM/releases/download/v1.0.2/INTLLM-Setup.exe">
+            <span>Download INTLLM-Setup.exe</span>
+            <span class="arrow">↓</span>
+          </a>
+          <a class="btn btn--secondary" href="https://github.com/Alshahriar-07/INTLLM/releases/download/v1.0.2/INTLLM.exe">
+            <span>Standalone INTLLM.exe</span>
+            <span class="arrow">↓</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Python / pip installation -->
+      <div class="reveal-up" style="margin-bottom: 36px;">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Python package installation (pip)</h2>
+        <p class="prose" style="margin-bottom: 16px;">
+          For environments with Python 3.11+ on Linux, macOS, or custom virtual environments:
         </p>
         <div class="code-card">
           <pre><code>pip install intllm
@@ -112,11 +141,27 @@ intllm doctor</code></pre>
         </div>
       </div>
 
+      <!-- CLI commands reference -->
+      <div class="reveal-up" style="margin-bottom: 36px;">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">CLI Commands Reference</h2>
+        <p class="prose" style="margin-bottom: 16px;">
+          After installation, the <code>intllm</code> command can be run from any terminal:
+        </p>
+        <div class="code-card">
+          <pre><code>intllm                 # Start local runtime and open web UI
+intllm start           # Same as above
+intllm serve           # Run API server only (no browser)
+intllm doctor          # Verify PostgreSQL, pgvector &amp; Ollama readiness
+intllm --version       # Print installed INTLLM version
+intllm --help          # Display command line help</code></pre>
+        </div>
+      </div>
+
       <!-- Readiness doctor -->
-      <div class="reveal-up" style="margin-top: 36px;">
-        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Verifying Readiness</h2>
+      <div class="reveal-up">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Verifying Dependencies</h2>
         <p class="prose">
-          After installation, run <code>intllm doctor</code> in your shell. It checks connection to your local Ollama daemon and local PostgreSQL database with pgvector, reporting any misconfigurations transparently.
+          Run <code>intllm doctor</code> in your terminal. It checks local connectivity to your Ollama daemon (<code>127.0.0.1:11434</code>) and local PostgreSQL database with pgvector, honestly reporting system status without fabricating results.
         </p>
       </div>
     </div>
@@ -128,16 +173,20 @@ intllm doctor</code></pre>
       <div class="footer-left">
         <span class="footer-brand">INTLLM</span>
         <span class="footer-divider">/</span>
-        <a class="footer-author" href="/author">Built by Al Shahriar Sowan</a>
+        <span class="footer-tagline">Build a Local AI That Evolves.</span>
+        <span class="footer-divider">/</span>
+        <a class="footer-author" href="/author">Al Shahriar Sowan</a>
       </div>
       <div class="footer-links">
-        <a class="footer-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="footer-link" href="/info">Info</a>
         <a class="footer-link" href="/download">Download</a>
+        <a class="footer-link" href="/info">Documentation</a>
+        <a class="footer-link" href="/info#release">Release</a>
+        <a class="footer-link" href="/license">License</a>
+        <a class="footer-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">Source Repository</a>
         <a class="footer-link" href="/author">Author</a>
       </div>
       <div>
-        <span>© 2026 INTLLM</span>
+        <span>Copyright © 2026 Al Shahriar Sowan · PolyForm Noncommercial License 1.0.0</span>
       </div>
     </div>
   </footer>

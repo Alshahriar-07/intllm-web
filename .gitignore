@@ -11,6 +11,7 @@ INTLLM-DATA.md
 README.md
 RELEASE.md
 CHANGELOG.md
+RELEASE_INFO.md
 
 # Installer sources (deployable copies live in public/)
 IRM_INSTALL/

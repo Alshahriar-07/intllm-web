@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>INTLLM — A Local-First Runtime for Local Intelligence</title>
-  <meta name="description" content="A local-first runtime for local intelligence, memory, tools and live information. Built around local models served by Ollama." />
+  <title>INTLLM — Build a Local AI That Evolves.</title>
+  <meta name="description" content="INTLLM creates a continuous learning environment around local models, keeping their knowledge fresh through live information, memory, and tools." />
   <link rel="canonical" href="https://intllm.vercel.app/" />
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="INTLLM" />
-  <meta property="og:title" content="INTLLM — A Local-First Runtime for Local Intelligence" />
-  <meta property="og:description" content="A local-first runtime for local intelligence, memory, tools and live information. Built around local models served by Ollama." />
+  <meta property="og:title" content="INTLLM — Build a Local AI That Evolves." />
+  <meta property="og:description" content="INTLLM creates a continuous learning environment around local models, keeping their knowledge fresh through live information, memory, and tools." />
   <meta property="og:url" content="https://intllm.vercel.app/" />
   <meta property="og:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
   <meta property="og:image:width" content="1200" />
@@ -19,8 +19,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="INTLLM — A Local-First Runtime for Local Intelligence" />
-  <meta name="twitter:description" content="A local-first runtime for local intelligence, memory, tools and live information. Built around local models served by Ollama." />
+  <meta name="twitter:title" content="INTLLM — Build a Local AI That Evolves." />
+  <meta name="twitter:description" content="INTLLM creates a continuous learning environment around local models, keeping their knowledge fresh through live information, memory, and tools." />
   <meta name="twitter:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
 
   <!-- Favicons & Manifest -->
@@ -56,16 +56,21 @@
     "name": "INTLLM",
     "operatingSystem": "Windows 10/11 x64, macOS, Linux",
     "applicationCategory": "DeveloperApplication",
-    "description": "A local-first runtime for local intelligence, memory, tools and live information. Built around local models served by Ollama.",
+    "description": "INTLLM creates a continuous learning environment around local models, keeping their knowledge fresh through live information, memory, and tools.",
     "url": "https://intllm.vercel.app/",
     "downloadUrl": "https://intllm.vercel.app/download",
-    "softwareVersion": "v1.0.1",
+    "softwareVersion": "1.0.2",
     "author": {
       "@type": "Person",
       "name": "Al Shahriar Sowan",
       "url": "https://github.com/Alshahriar-07"
     },
-    "license": "https://github.com/Alshahriar-07/INTLLM/blob/main/LICENSE",
+    "copyrightHolder": {
+      "@type": "Person",
+      "name": "Al Shahriar Sowan"
+    },
+    "copyrightYear": "2026",
+    "license": "https://polyformproject.org/licenses/noncommercial/1.0.0",
     "codeRepository": "https://github.com/Alshahriar-07/INTLLM"
   }
   </script>
@@ -79,7 +84,7 @@
         <img class="intro-logo logo-dark" src="/assets/png/INTLLM-logo-white.png" alt="INTLLM" width="160" height="40" />
       </div>
       <div class="intro-line"></div>
-      <div class="intro-status">LOCAL RUNTIME BOOT</div>
+      <div class="intro-status">LOCAL RUNTIME BOOT · v1.0.2</div>
     </div>
   </div>
 
@@ -94,11 +99,18 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
-        <a class="nav-link" href="/info">Info</a>
-        <a class="nav-link" href="/download">Download</a>
-        <a class="nav-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#agent">Agent</a>
+        <a class="nav-link" href="#models">Models</a>
+        <a class="nav-link" href="/info">Docs</a>
+        <a class="nav-link" href="/info#release">Release</a>
+        <a class="nav-link" href="/license">License</a>
+        <a class="nav-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer" title="Source Repository on GitHub">
           <span>GitHub</span>
           <svg class="nav-github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        </a>
+        <a class="btn btn--primary" href="/download" style="padding: 6px 14px; font-size: 13px;">
+          <span>Download</span>
         </a>
 
         <button class="theme-toggle" type="button" aria-label="Toggle color theme">
@@ -114,35 +126,34 @@
     <section class="hero">
       <div class="hero-bg-grid" aria-hidden="true"></div>
       <div class="container hero-inner">
-        <!-- 1. Medium-size INTLLM Branding -->
+        <!-- 1. INTLLM Branding & Production Release Badge -->
         <div class="hero-brand-wrap reveal-hero">
           <img class="hero-brand-logo logo-light" src="/assets/png/INTLLM-logo-transparent.png" alt="INTLLM" width="180" height="44" />
           <img class="hero-brand-logo logo-dark" src="/assets/png/INTLLM-logo-white.png" alt="INTLLM" width="180" height="44" />
           <div class="hero-status-pill">
             <span class="status-dot"></span>
-            <span>Open-Source Runtime · v1.0.1</span>
+            <span>INTLLM v1.0.2 · Production Release</span>
           </div>
         </div>
 
-        <!-- 2. Short Powerful Headline -->
-        <!-- 2. Final Hero Copy -->
+        <!-- 2. Hero Headline -->
         <h1 class="hero-title reveal-hero">
           Build a Local AI That Evolves.
         </h1>
 
-        <!-- 3. Exact Subtext -->
+        <!-- 3. Supporting Description -->
         <p class="hero-desc reveal-hero">
           INTLLM creates a continuous learning environment around local models, keeping their knowledge fresh through live information, memory, and tools.
         </p>
 
         <!-- 4. Hero Primary & Secondary CTAs -->
         <div class="hero-actions reveal-hero" style="display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; justify-content: center;">
-          <a class="btn btn--primary" href="/download">
-            <span>Download Setup</span>
-            <span class="arrow">→</span>
+          <a class="btn btn--primary" href="https://github.com/Alshahriar-07/INTLLM/releases/download/v1.0.2/INTLLM-Setup.exe">
+            <span>Download for Windows</span>
+            <span class="arrow">↓</span>
           </a>
           <a class="btn btn--secondary" href="/info">
-            <span>Documentation</span>
+            <span>Explore INTLLM</span>
             <span class="arrow">→</span>
           </a>
         </div>
@@ -193,8 +204,8 @@
             </div>
 
             <div class="terminal-footer-notes">
-              <span id="terminal-platform-note">Windows 10/11 x64 · <a href="/download">Download</a></span>
-              <span>SHA256 verified · MIT License</span>
+              <span id="terminal-platform-note">Windows 10/11 x64 · INTLLM v1.0.2 Production Release</span>
+              <span>SHA256 verified · PolyForm Noncommercial 1.0.0</span>
             </div>
           </div>
         </div>
@@ -202,7 +213,7 @@
     </section>
 
     <!-- 01 / Concept: How It Works & Three Feature Blocks -->
-    <section class="section" id="how-it-works">
+    <section class="section" id="features">
       <div class="container">
         <p class="section-label reveal-up">01 / Concept</p>
         <h2 class="section-heading reveal-up">How INTLLM transforms local models</h2>
@@ -224,7 +235,7 @@
             </div>
             <div class="how-block-label">01 / Base</div>
             <h3 class="how-block-title">Local Model</h3>
-            <p class="how-block-desc">Inference runs through Ollama on your machine. Model weights stay unmodified and private.</p>
+            <p class="how-block-desc">Inference runs locally through Ollama on your machine. Model weights stay unmodified, private, and offline.</p>
           </div>
 
           <div class="how-block-operator">+</div>
@@ -239,7 +250,7 @@
             </div>
             <div class="how-block-label">02 / Context</div>
             <h3 class="how-block-title">Internet &amp; Tools</h3>
-            <p class="how-block-desc">Opt-in DuckDuckGo retrieval and sandboxed Playwright browser access with policy gates.</p>
+            <p class="how-block-desc">Opt-in DuckDuckGo retrieval and sandboxed Playwright browser access with strict security gates.</p>
           </div>
 
           <div class="how-block-operator">+</div>
@@ -314,10 +325,87 @@
       </div>
     </section>
 
-    <!-- 02 / Architecture: Information Flow Visualization & System Layers -->
+    <!-- 02 / Agent Mode & Workspace Integration -->
+    <section class="section" id="agent">
+      <div class="container">
+        <p class="section-label reveal-up">02 / Agent Mode</p>
+        <h2 class="section-heading reveal-up">Agent Mode for coding workflows</h2>
+        <p class="prose-lead reveal-up">
+          Agent Mode is designed primarily for coding and development workflows, giving your local model controlled access to a dedicated project workspace.
+        </p>
+
+        <div class="how-blocks-wrap reveal-up" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+          <div class="how-block">
+            <div class="how-block-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="how-block-label">Boundary</div>
+            <h3 class="how-block-title">Workspace Selection</h3>
+            <p class="how-block-desc">You choose the directory. The selected workspace acts as the Agent's exclusive filesystem boundary on disk.</p>
+          </div>
+
+          <div class="how-block">
+            <div class="how-block-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="how-block-label">Security</div>
+            <h3 class="how-block-title">Workspace Sandbox</h3>
+            <p class="how-block-desc">Every path is resolved against the workspace. Directory traversal attempts outside the boundary are rejected with <code>403 Forbidden</code>.</p>
+          </div>
+
+          <div class="how-block">
+            <div class="how-block-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </div>
+            <div class="how-block-label">Control</div>
+            <h3 class="how-block-title">Permission Gateway</h3>
+            <p class="how-block-desc">File creation, editing, deletion, directory changes, and terminal commands require user permission. The workspace root cannot be deleted.</p>
+          </div>
+        </div>
+
+        <div class="system-layers reveal-up" style="margin-top: 32px;">
+          <div class="layer-row reveal-up">
+            <div class="layer-name">
+              <span>File Operations</span>
+              <span class="layer-badge">Workspace-scoped</span>
+            </div>
+            <div class="layer-desc">
+              Safe file reading, creation, line editing, and optional deletion within the active workspace.
+            </div>
+          </div>
+          <div class="layer-row reveal-up">
+            <div class="layer-name">
+              <span>Terminal Execution</span>
+              <span class="layer-badge">Monitored</span>
+            </div>
+            <div class="layer-desc">
+              Commands execute with the workspace as the working directory, subject to timeout limits and path safety verification.
+            </div>
+          </div>
+          <div class="layer-row reveal-up">
+            <div class="layer-name">
+              <span>Approval Model</span>
+              <span class="layer-badge">Granular</span>
+            </div>
+            <div class="layer-desc">
+              Choose <strong>Allow Once</strong>, <strong>Allow Session</strong> (for harmless repetitive tasks), or <strong>Reject</strong> for any sensitive operation.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 / Architecture: Information Flow Visualization & System Layers -->
     <section class="section" id="architecture">
       <div class="container">
-        <p class="section-label reveal-up">02 / Architecture</p>
+        <p class="section-label reveal-up">03 / Architecture</p>
         <h2 class="section-heading reveal-up">Information flowing through the runtime</h2>
         <p class="prose reveal-up">
           Every request traverses a single verified pipeline. Privileged actions pass through the tool gateway; memory and web context are injected dynamically before local inference executes.
@@ -444,21 +532,91 @@
       </div>
     </section>
 
+    <!-- 04 / Model Management & Hardware Tiers -->
+    <section class="section" id="models">
+      <div class="container">
+        <p class="section-label reveal-up">04 / Model Management</p>
+        <h2 class="section-heading reveal-up">Hardware-based recommendations</h2>
+        <p class="prose reveal-up">
+          INTLLM inspects your local hardware and categorizes models into practical tiers based on parameter size and memory requirements.
+        </p>
+
+        <div class="how-blocks-wrap reveal-up" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+          <div class="how-block">
+            <div class="how-block-label">Tier 01</div>
+            <h3 class="how-block-title">Potato</h3>
+            <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-subtle); margin-bottom: 8px;">&lt; 3B parameters</p>
+            <p class="how-block-desc">Ultra-fast inference on integrated GPUs and low-power systems. Suitable for simple queries and constrained context windows.</p>
+          </div>
+
+          <div class="how-block">
+            <div class="how-block-label">Tier 02</div>
+            <h3 class="how-block-title">Medium</h3>
+            <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-subtle); margin-bottom: 8px;">3B–&lt; 8B parameters</p>
+            <p class="how-block-desc">Balanced performance for typical developer workflows, code completion, and context-aware chat on consumer GPUs/CPUs.</p>
+          </div>
+
+          <div class="how-block">
+            <div class="how-block-label">Tier 03</div>
+            <h3 class="how-block-title">High</h3>
+            <p style="font-family: var(--font-mono); font-size: 12px; color: var(--text-subtle); margin-bottom: 8px;">&gt;= 8B parameters</p>
+            <p class="how-block-desc">High-capability models designed for complex reasoning, multi-file code editing, and intensive Agent tasks with dedicated VRAM.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / Local OpenAI-Compatible API & CLI -->
+    <section class="section" id="api-cli">
+      <div class="container">
+        <p class="section-label reveal-up">05 / API &amp; CLI</p>
+        <h2 class="section-heading reveal-up">Local API &amp; CLI control</h2>
+        <p class="prose reveal-up">
+          INTLLM serves an OpenAI-compatible <code>/v1</code> endpoint for local integrations and ships with a unified terminal command.
+        </p>
+
+        <div class="how-blocks-wrap reveal-up" style="grid-template-columns: 1fr 1fr; align-items: stretch;">
+          <div class="how-block">
+            <div class="how-block-label">Local API (/v1)</div>
+            <h3 class="how-block-title">OpenAI-Compatible</h3>
+            <div class="code-card" style="margin: 12px 0 0;">
+              <pre><code>GET  /v1/models
+GET  /v1/models/{model}
+POST /v1/chat/completions</code></pre>
+            </div>
+            <p class="how-block-desc" style="margin-top: 10px;">Authenticated via INTLLM-managed scrypt-hashed API keys. Supports streaming SSE and single-request memory/web toggles.</p>
+          </div>
+
+          <div class="how-block">
+            <div class="how-block-label">Terminal CLI</div>
+            <h3 class="how-block-title">intllm Command</h3>
+            <div class="code-card" style="margin: 12px 0 0;">
+              <pre><code>intllm             # Start &amp; launch UI
+intllm --version   # Print version (1.0.2)
+intllm --help      # Show command reference
+intllm doctor      # Verify local dependencies</code></pre>
+            </div>
+            <p class="how-block-desc" style="margin-top: 10px;">Direct CLI integration registered in your PATH upon installation across Windows, macOS, and Linux.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Minimal Download Callout -->
-    <section class="cta-section">
+    <section class="cta-section" id="download">
       <div class="container">
         <div class="cta-box reveal-up">
           <div class="cta-info">
-            <h3>Get started with INTLLM</h3>
-            <p>Available for Windows x64, macOS, and Linux. Licensed under MIT.</p>
+            <h3>Get started with INTLLM v1.0.2</h3>
+            <p>Production Release for Windows 10/11 x64, macOS, and Linux. PolyForm Noncommercial License 1.0.0.</p>
           </div>
           <div class="cta-actions">
-            <a class="btn btn--primary" href="/download">
-              <span>Download Setup</span>
-              <span class="arrow">→</span>
+            <a class="btn btn--primary" href="https://github.com/Alshahriar-07/INTLLM/releases/download/v1.0.2/INTLLM-Setup.exe">
+              <span>Download for Windows</span>
+              <span class="arrow">↓</span>
             </a>
-            <a class="btn btn--secondary" href="/info">
-              <span>Documentation</span>
+            <a class="btn btn--secondary" href="/download">
+              <span>All Downloads</span>
               <span class="arrow">→</span>
             </a>
           </div>
@@ -466,10 +624,10 @@
       </div>
     </section>
 
-    <!-- Minimal GitHub Link Strip -->
+    <!-- Source Repository Strip -->
     <section class="container">
       <div class="github-strip reveal-up">
-        <span style="color: var(--text-muted);">Open source on GitHub</span>
+        <span style="color: var(--text-muted);">Source code is publicly available under the PolyForm Noncommercial License 1.0.0</span>
         <a class="github-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">
           <span>github.com/Alshahriar-07/INTLLM</span>
           <span class="arrow">→</span>
@@ -493,16 +651,20 @@
       <div class="footer-left">
         <span class="footer-brand">INTLLM</span>
         <span class="footer-divider">/</span>
-        <a class="footer-author" href="/author">Built by Al Shahriar Sowan</a>
+        <span class="footer-tagline">Build a Local AI That Evolves.</span>
+        <span class="footer-divider">/</span>
+        <a class="footer-author" href="/author">Al Shahriar Sowan</a>
       </div>
       <div class="footer-links">
-        <a class="footer-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a class="footer-link" href="/info">Info</a>
         <a class="footer-link" href="/download">Download</a>
+        <a class="footer-link" href="/info">Documentation</a>
+        <a class="footer-link" href="/info#release">Release</a>
+        <a class="footer-link" href="/license">License</a>
+        <a class="footer-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">Source Repository</a>
         <a class="footer-link" href="/author">Author</a>
       </div>
       <div>
-        <span>© 2026 INTLLM</span>
+        <span>Copyright © 2026 Al Shahriar Sowan · PolyForm Noncommercial License 1.0.0</span>
       </div>
     </div>
   </footer>

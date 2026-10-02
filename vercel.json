@@ -9,7 +9,8 @@
     { "source": "/info", "destination": "/info.html" },
     { "source": "/download", "destination": "/download.html" },
     { "source": "/install", "destination": "/install.html" },
-    { "source": "/author", "destination": "/author.html" }
+    { "source": "/author", "destination": "/author.html" },
+    { "source": "/license", "destination": "/license.html" }
   ],
   "headers": [
     {

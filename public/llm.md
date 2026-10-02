@@ -8,9 +8,9 @@
 - **Description:** A local-first AI runtime that extends compatible local models (via Ollama) with layered memory, optional live web retrieval, controlled browser tools, and an OpenAI-compatible local API — all executing locally on your machine.
 - **Repository:** https://github.com/Alshahriar-07/INTLLM
 - **Website:** https://intllm.vercel.app
-- **License:** MIT License
+- **License:** PolyForm Noncommercial License 1.0.0
 - **Author:** Al Shahriar Sowan (@Alshahriar-07)
-- **Current Version:** 0.4.2 (First official public release: v1.0.1)
+- **Current Version:** 1.0.2 (Production Release)
 
 ## Architecture
 
