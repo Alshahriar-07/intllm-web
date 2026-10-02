@@ -1,7 +1,15 @@
 /* ==========================================================================
-   INTLLM — Client-side minimal behavior
-   Theme toggle, platform tabs, copy feedback, scrollspy, FAQ, and subtle reveal.
-   Zero external dependencies. Extremely lightweight.
+   INTLLM — Minimalist Client Runtime Behavior
+   Strict Black + White + Ash design system.
+   Features:
+   - Theme toggle (pure light/dark)
+   - Intro boot sequence (initial load)
+   - Hero sequential reveal
+   - Platform controls & typed command animation
+   - Functional monochrome clipboard copy
+   - Smooth page transitions
+   - Documentation scrollspy & FAQ
+   Zero external dependencies. Fast, robust, accessible.
    ========================================================================== */
 (function () {
   "use strict";
@@ -9,8 +17,9 @@
   var doc = document;
   var root = doc.documentElement;
   var THEME_KEY = "intllm-theme";
+  var BOOT_KEY = "intllm-boot-seen";
 
-  /* ---- Theme Management -------------------------------------------------- */
+  /* ---- 1. Theme Management ----------------------------------------------- */
   function getSystemTheme() {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
@@ -25,14 +34,12 @@
     }
   }
 
-  // Initialize theme
   var savedTheme = null;
   try {
     savedTheme = localStorage.getItem(THEME_KEY);
-  } catch (e) { /* storage restricted */ }
+  } catch (e) {}
   applyTheme(savedTheme || getSystemTheme());
 
-  // Listen for system preference changes if user hasn't explicitly set one
   if (window.matchMedia) {
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
       try {
@@ -43,7 +50,6 @@
     });
   }
 
-  // Theme toggle button click
   var themeToggle = doc.querySelector(".theme-toggle");
   if (themeToggle) {
     themeToggle.addEventListener("click", function () {
@@ -56,32 +62,253 @@
     });
   }
 
-  /* ---- Header Scroll Border Transition ----------------------------------- */
-  var header = doc.querySelector(".site-header");
-  if (header) {
-    var checkScroll = function () {
-      if (window.scrollY > 16) {
-        header.classList.add("is-scrolled");
-      } else {
-        header.classList.remove("is-scrolled");
+  /* ---- 2. Page Transition System ----------------------------------------- */
+  var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function initPageTransitions() {
+    // Intercept internal navigation for subtle page fade transition
+    doc.addEventListener("click", function (e) {
+      var link = e.target.closest("a");
+      if (!link) return;
+      var href = link.getAttribute("href");
+      if (!href) return;
+
+      // Ignore external, target=_blank, hash-only, or file downloads
+      if (
+        link.target === "_blank" ||
+        e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+        href.startsWith("#") ||
+        href.startsWith("http://") ||
+        href.startsWith("https://") ||
+        href.startsWith("mailto:") ||
+        href.endsWith(".exe") ||
+        href.endsWith(".ps1") ||
+        href.endsWith(".sh") ||
+        href.endsWith(".md") ||
+        href.endsWith(".xml") ||
+        href.endsWith(".txt")
+      ) {
+        return;
       }
-    };
-    window.addEventListener("scroll", checkScroll, { passive: true });
-    checkScroll();
+
+      // Check if it's a relative path on same origin
+      if (href.startsWith("/") || href.startsWith("./") || href.startsWith("../")) {
+        if (prefersReducedMotion) return;
+        e.preventDefault();
+        doc.body.classList.add("is-transitioning-out");
+        setTimeout(function () {
+          window.location.href = href;
+        }, 220);
+      }
+    });
+
+    // Handle pageshow for bfcache restoration
+    window.addEventListener("pageshow", function (e) {
+      doc.body.classList.remove("is-transitioning-out");
+      doc.body.classList.add("is-page-ready");
+    });
   }
 
-  /* ---- Copy to Clipboard ------------------------------------------------- */
+  /* ---- 3. Intro Boot Experience ------------------------------------------ */
+  function initIntro() {
+    var introEl = doc.getElementById("site-intro");
+    if (!introEl) {
+      doc.body.classList.add("is-page-ready");
+      startHeroSequence();
+      return;
+    }
+
+    var hasBooted = false;
+    try {
+      hasBooted = sessionStorage.getItem(BOOT_KEY) === "true";
+    } catch (e) {}
+
+    // If already booted this session or reduced motion preferred, dismiss intro swiftly
+    if (hasBooted || prefersReducedMotion) {
+      introEl.parentNode && introEl.parentNode.removeChild(introEl);
+      doc.body.classList.add("is-page-ready");
+      startHeroSequence();
+      return;
+    }
+
+    // Play cinematic intro sequence
+    try {
+      sessionStorage.setItem(BOOT_KEY, "true");
+    } catch (e) {}
+
+    introEl.classList.add("is-playing");
+
+    setTimeout(function () {
+      introEl.classList.add("is-revealing");
+    }, 400);
+
+    setTimeout(function () {
+      introEl.classList.add("is-leaving");
+      doc.body.classList.add("is-page-ready");
+      startHeroSequence();
+    }, 1100);
+
+    setTimeout(function () {
+      if (introEl.parentNode) {
+        introEl.parentNode.removeChild(introEl);
+      }
+    }, 1450);
+  }
+
+  /* ---- 4. Hero Sequential Reveal ----------------------------------------- */
+  function startHeroSequence() {
+    var heroItems = doc.querySelectorAll(".reveal-hero");
+    if (!heroItems.length) return;
+
+    if (prefersReducedMotion) {
+      heroItems.forEach(function (el) { el.classList.add("is-revealed"); });
+      typeTerminalCommand();
+      return;
+    }
+
+    heroItems.forEach(function (el, idx) {
+      setTimeout(function () {
+        el.classList.add("is-revealed");
+        // Start terminal typing when terminal reaches reveal
+        if (el.classList.contains("terminal-box") || idx === heroItems.length - 1) {
+          typeTerminalCommand();
+        }
+      }, 80 + idx * 90);
+    });
+  }
+
+  /* ---- 5. Platform Controls & Typing Terminal ---------------------------- */
+  var platformData = {
+    windows: {
+      name: "Windows",
+      prompt: ">",
+      cmd: "irm https://intllm.vercel.app/install.ps1 | iex",
+      indicator: "PowerShell · Windows 10/11 x64",
+      note: 'Windows 10/11 x64 · Or <a href="/download">Download Setup.exe</a>'
+    },
+    macos: {
+      name: "macOS",
+      prompt: "$",
+      cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
+      indicator: "zsh / bash · macOS 12+ (Apple Silicon & Intel)",
+      note: 'macOS universal shell installer · Homebrew / pip compatible'
+    },
+    linux: {
+      name: "Linux",
+      prompt: "$",
+      cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
+      indicator: "bash · Linux x64 & arm64",
+      note: 'Linux universal installer · pip install intllm supported'
+    }
+  };
+
+  var currentOS = "windows";
+  var typingTimeout = null;
+
+  function typeTerminalCommand() {
+    var cmdEl = doc.getElementById("install-cmd");
+    var cursorEl = doc.getElementById("install-cursor");
+    if (!cmdEl) return;
+
+    var fullText = (platformData[currentOS] && platformData[currentOS].cmd) || "irm https://intllm.vercel.app/install.ps1 | iex";
+
+    if (prefersReducedMotion) {
+      cmdEl.textContent = fullText;
+      if (cursorEl) cursorEl.style.opacity = "0";
+      return;
+    }
+
+    if (typingTimeout) clearTimeout(typingTimeout);
+
+    cmdEl.textContent = "";
+    if (cursorEl) {
+      cursorEl.style.opacity = "1";
+      cursorEl.classList.add("is-typing");
+    }
+
+    var idx = 0;
+    var speed = Math.max(14, Math.min(22, Math.floor(950 / fullText.length)));
+
+    function step() {
+      if (idx < fullText.length) {
+        cmdEl.textContent += fullText.charAt(idx);
+        idx++;
+        typingTimeout = setTimeout(step, speed);
+      } else {
+        // Typing finished
+        if (cursorEl) {
+          cursorEl.classList.remove("is-typing");
+          setTimeout(function () {
+            cursorEl.style.opacity = "0";
+          }, 800);
+        }
+      }
+    }
+
+    step();
+  }
+
+  function setPlatform(osKey) {
+    if (!platformData[osKey]) return;
+    currentOS = osKey;
+
+    // Update active platform buttons
+    var allPlatformButtons = doc.querySelectorAll("[data-os]");
+    allPlatformButtons.forEach(function (btn) {
+      if (btn.getAttribute("data-os") === osKey) {
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-selected", "true");
+      } else {
+        btn.classList.remove("is-active");
+        btn.setAttribute("aria-selected", "false");
+      }
+    });
+
+    // Update terminal indicators
+    var promptEl = doc.getElementById("install-prompt");
+    var indicatorEl = doc.getElementById("terminal-os-indicator");
+    var noteEl = doc.getElementById("terminal-platform-note");
+
+    if (promptEl) promptEl.textContent = platformData[osKey].prompt;
+    if (indicatorEl) indicatorEl.textContent = platformData[osKey].indicator;
+    if (noteEl) noteEl.innerHTML = platformData[osKey].note;
+
+    // Type the new command
+    typeTerminalCommand();
+  }
+
+  // Handle platform button / tab clicks
+  doc.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-os]");
+    if (!btn) return;
+    var os = btn.getAttribute("data-os");
+    if (os) {
+      setPlatform(os);
+    }
+  });
+
+  /* ---- 6. Monochrome Copy to Clipboard ----------------------------------- */
   function copyText(text, btn) {
     if (!text) return;
-    var originalLabel = btn.innerHTML;
+    var labelEl = btn.querySelector(".copy-label") || btn.querySelector("span:not(.arrow)");
+    var originalLabel = labelEl ? labelEl.textContent : btn.textContent;
 
     function markCopied() {
       btn.classList.add("is-copied");
-      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg> Copied';
+      if (labelEl) {
+        labelEl.textContent = "Copied";
+      } else {
+        btn.textContent = "Copied";
+      }
       btn.setAttribute("aria-label", "Copied to clipboard");
+
       setTimeout(function () {
         btn.classList.remove("is-copied");
-        btn.innerHTML = originalLabel;
+        if (labelEl) {
+          labelEl.textContent = originalLabel;
+        } else {
+          btn.textContent = originalLabel;
+        }
         btn.removeAttribute("aria-label");
       }, 1600);
     }
@@ -121,44 +348,21 @@
     copyText(text, btn);
   });
 
-  /* ---- Platform Tabs in Terminal Widget ---------------------------------- */
-  var platformTabs = doc.querySelectorAll(".terminal-tab");
-  var terminalCode = doc.querySelector("#install-cmd");
-  var terminalPrompt = doc.querySelector("#install-prompt");
-  var terminalPlatformNote = doc.querySelector("#terminal-platform-note");
-
-  var platformData = {
-    windows: {
-      prompt: "$",
-      cmd: "irm https://intllm.vercel.app/install.ps1 | iex",
-      note: 'Windows 10/11 x64 · Or <a href="/download">Download Setup.exe</a>'
-    },
-    macos: {
-      prompt: "$",
-      cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
-      note: 'macOS 12+ (Apple Silicon & Intel) · Universal shell installer'
-    },
-    linux: {
-      prompt: "$",
-      cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
-      note: 'Linux x64/arm64 · Universal shell installer or pip install intllm'
-    }
-  };
-
-  platformTabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      platformTabs.forEach(function (t) { t.classList.remove("is-active"); });
-      tab.classList.add("is-active");
-      var os = tab.getAttribute("data-os");
-      if (platformData[os] && terminalCode) {
-        terminalCode.textContent = platformData[os].cmd;
-        if (terminalPrompt) terminalPrompt.textContent = platformData[os].prompt;
-        if (terminalPlatformNote) terminalPlatformNote.innerHTML = platformData[os].note;
+  /* ---- 7. Header Scroll Transition --------------------------------------- */
+  var header = doc.querySelector(".site-header");
+  if (header) {
+    var checkScroll = function () {
+      if (window.scrollY > 16) {
+        header.classList.add("is-scrolled");
+      } else {
+        header.classList.remove("is-scrolled");
       }
-    });
-  });
+    };
+    window.addEventListener("scroll", checkScroll, { passive: true });
+    checkScroll();
+  }
 
-  /* ---- Scrollspy for Documentation Page (/info) --------------------------- */
+  /* ---- 8. Scrollspy for Documentation Page (/info) ----------------------- */
   var docLinks = doc.querySelectorAll(".doc-nav-link");
   var docSections = doc.querySelectorAll(".doc-section");
   if (docLinks.length && docSections.length && window.IntersectionObserver) {
@@ -182,7 +386,7 @@
     docSections.forEach(function (sec) { observer.observe(sec); });
   }
 
-  /* ---- FAQ Accordion Toggle ---------------------------------------------- */
+  /* ---- 9. FAQ Accordion Toggle ------------------------------------------- */
   doc.querySelectorAll(".faq-question").forEach(function (q) {
     q.addEventListener("click", function () {
       var item = q.closest(".faq-item");
@@ -192,7 +396,7 @@
     });
   });
 
-  /* ---- Subtle Reveal on Scroll ------------------------------------------- */
+  /* ---- 10. Subtle Scroll Entrance Observer ------------------------------- */
   var reveals = doc.querySelectorAll(".reveal-up");
   if (reveals.length && window.IntersectionObserver) {
     var revealObserver = new IntersectionObserver(
@@ -204,10 +408,18 @@
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
     reveals.forEach(function (el) { revealObserver.observe(el); });
   } else {
     reveals.forEach(function (el) { el.classList.add("is-revealed"); });
+  }
+
+  /* ---- Initialize on DOM Ready ------------------------------------------- */
+  initPageTransitions();
+  if (doc.readyState === "loading") {
+    doc.addEventListener("DOMContentLoaded", initIntro);
+  } else {
+    initIntro();
   }
 })();
