@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>INTLLM — Information &amp; Architecture</title>
+  <meta name="description" content="How INTLLM works: the FastAPI runtime, layered memory (Flash Brain, Hot Cache, Secondary Brain), Ollama model runtime, tool gateway, local OpenAI-compatible API, hardware tiers, security and privacy." />
+  <link rel="canonical" href="https://intllm.vercel.app/info" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="INTLLM" />
+  <meta property="og:title" content="INTLLM — Information &amp; Architecture" />
+  <meta property="og:description" content="The local FastAPI runtime, layered memory, Ollama model runtime, permission-gated tools and the OpenAI-compatible local API behind INTLLM." />
+  <meta property="og:url" content="https://intllm.vercel.app/info" />
+  <meta property="og:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="INTLLM — Information &amp; Architecture" />
+  <meta name="twitter:description" content="The local FastAPI runtime, layered memory, Ollama model runtime, permission-gated tools and the OpenAI-compatible local API behind INTLLM." />
+  <meta name="twitter:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
+
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="/assets/ico/INTLLM.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="256x256" href="/assets/png/INTLLM-icon-256.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="/css/site.css" />
+
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("intllm-theme");
+        var theme = stored === "dark" || stored === "light"
+          ? stored
+          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (e) { /* no storage; default stays light */ }
+    })();
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "INTLLM — Information & Architecture",
+    "url": "https://intllm.vercel.app/info",
+    "isPartOf": { "@type": "WebSite", "name": "INTLLM", "url": "https://intllm.vercel.app/" }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="/" aria-label="INTLLM home">
+        <img class="logo logo-light" src="/assets/svg/INTLLM-logo.svg" alt="INTLLM" width="109" height="28" />
+        <img class="logo logo-dark" src="/assets/svg/INTLLM-logo-white.svg" alt="" width="109" height="28" />
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/info" aria-current="page">Info</a>
+        <a href="/download">Download</a>
+        <a href="/install">Install</a>
+        <a class="nav-github" href="https://github.com/Alshahriar-07/INTLLM" rel="noopener noreferrer">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          <span>GitHub</span>
+        </a>
+        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 9.03A5.5 5.5 0 0 1 6.97 2.5a5.5 5.5 0 1 0 6.53 6.53Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3.25"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M12.6 3.4l-1.06 1.06M4.46 11.54 3.4 12.6"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="container">
+      <div class="page-head">
+        <p class="eyebrow">Information</p>
+        <h1>How INTLLM works</h1>
+        <p class="lede">
+          INTLLM is a local-first AI runtime: a FastAPI backend, a web UI, layered memory,
+          tools and an OpenAI-compatible local API built around local models served by
+          Ollama. It is the orchestration layer around the model — not a model itself.
+        </p>
+      </div>
+
+      <section aria-labelledby="overview-title">
+        <div class="section-head"><span class="index">01</span><h2 id="overview-title">Overview</h2></div>
+        <p>
+          A normal local model setup is just <strong>model → prompt → response</strong>. Such a
+          model has no memory of your context, no access to current information, no safe tool
+          access and no API surface your other tools can use.
+        </p>
+        <p>
+          INTLLM does not retrain the base model for every new fact. Instead it supplies the
+          surrounding environment: layered memory stored in local PostgreSQL with pgvector,
+          optional live web retrieval with source attribution, a tool gateway that mediates
+          browser and filesystem access, and a local OpenAI-compatible API with its own key
+          system — all while user responses always keep priority over background work.
+        </p>
+        <ul class="prose-list">
+          <li><strong>Local first</strong> — backend, database, memory, models and UI run on your machine; the API binds to <code>127.0.0.1</code> by default.</li>
+          <li><strong>User first</strong> — background maintenance yields resources whenever interactive work needs them.</li>
+          <li><strong>Model agnostic</strong> — the model list comes from your Ollama inventory; nothing is hardcoded.</li>
+          <li><strong>Transparent</strong> — dependency state is reported honestly (<code>running</code> / <code>stopped</code> / <code>unavailable</code> / <code>misconfigured</code>); nothing is fabricated.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="arch-title">
+        <div class="section-head"><span class="index">02</span><h2 id="arch-title">Architecture</h2></div>
+        <pre class="arch" role="img" aria-label="Diagram: user and clients talk to the INTLLM FastAPI orchestrator, which connects the memory layers, tool gateway, browser agent, web retrieval, resource governor and background learner, and routes inference to Ollama with PostgreSQL plus pgvector as the local store.">
+User · Web UI · OpenAI-compatible API (/v1) · intllm CLI
+                       │
+                       ▼
+        <strong>INTLLM Runtime (FastAPI orchestrator)</strong>
+   ┌─────────────┬──────────────┬──────────────────┐
+   │             │              │                  │
+   ▼             ▼              ▼                  ▼
+L0 Flash     L1 Hot        L2 Secondary      Tool Gateway
+Brain        Cache         Brain             · Browser Agent
+(index)      (TTL)         (pgvector)        · Web Retrieval
+                                             · Resource Governor
+                                             · Background Learner
+                       │
+            ┌──────────┴──────────┐
+            ▼                     ▼
+      <strong>Ollama</strong>              <strong>PostgreSQL + pgvector</strong>
+   (local models)        (conversations · memory · keys)
+        </pre>
+        <p class="arch-caption">
+          The web UI, the OpenAI-compatible API and the CLI all talk to the same FastAPI
+          orchestrator; Ollama and PostgreSQL are local dependencies INTLLM detects and reports.
+        </p>
+      </section>
+
+      <section aria-labelledby="memory-title">
+        <div class="section-head"><span class="index">03</span><h2 id="memory-title">Layered memory</h2></div>
+        <p>
+          Relevant memory is retrieved and added to the model context during chat; retrieved
+          memory is labelled in the response. Background maintenance keeps indexes and
+          freshness current — it is <strong>knowledge maintenance, not model retraining</strong>.
+        </p>
+        <div class="feature-grid">
+          <div class="feature">
+            <span class="feature-tag">L0</span>
+            <h3>Flash Brain</h3>
+            <p>
+              A fast routing/index layer over memory — a vector index plus keywords that answers:
+              is useful memory available, where is it, how fresh, how confident? It is not the
+              full knowledge store.
+            </p>
+          </div>
+          <div class="feature">
+            <span class="feature-tag">L1</span>
+            <h3>Hot Cache</h3>
+            <p>
+              Short-lived cache of recently useful query results (30-minute default TTL).
+              A promoted result avoids all vector work on repeat lookups; confident and fresh
+              top matches get promoted automatically.
+            </p>
+          </div>
+          <div class="feature">
+            <span class="feature-tag">L2</span>
+            <h3>Secondary Brain</h3>
+            <p>
+              The durable store of curated, verified knowledge in PostgreSQL + pgvector:
+              compact facts, workflows, lessons and preferences with provenance, confidence
+              and freshness policies (TTLs from ~1 year down to 6 hours).
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="tools-title">
+        <div class="section-head"><span class="index">04</span><h2 id="tools-title">Tools, browser &amp; internet</h2></div>
+        <p>
+          The model never directly owns OS or browser privileges. Every tool call passes through
+          one gate: <strong>validation → policy → permission → execution → sanitization</strong>.
+          Retrieved web content is treated as data, not instructions, and non-public URLs are
+          rejected by SSRF guards.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <caption class="visually-hidden" style="position:absolute;left:-9999px">Implemented tool registry</caption>
+            <thead>
+              <tr><th>Tool</th><th>Permission</th><th>Risk</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><code>web.search</code> · <code>web.open</code> · <code>web.extract</code></td><td>read-only</td><td>Low</td></tr>
+              <tr><td><code>browser.read</code> · <code>browser.screenshot</code></td><td>read-only</td><td>Low</td></tr>
+              <tr><td><code>browser.open</code> · <code>browser.click</code></td><td>requires approval</td><td>Medium</td></tr>
+              <tr><td><code>brain.search</code> · <code>system.info</code></td><td>read-only</td><td>Low</td></tr>
+              <tr><td><code>filesystem.read</code></td><td>requires approval · workspace allowlist only</td><td>Medium</td></tr>
+              <tr><td><code>filesystem.write</code> · <code>terminal.execute</code></td><td>restricted — <strong>disabled by default policy</strong></td><td>High / Critical</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Live web retrieval (DuckDuckGo by default, SearXNG optional) is <strong>opt-in per
+          request</strong> — nothing goes to the internet automatically. Sources are never
+          fabricated; when a provider is unreachable you get an explicit unavailable state.
+          The browser agent is optional (Playwright) and reported as unavailable when not installed.
+        </p>
+      </section>
+
+      <section aria-labelledby="models-title">
+        <div class="section-head"><span class="index">05</span><h2 id="models-title">Model runtime — Ollama</h2></div>
+        <p>
+          All inference happens through your local Ollama daemon
+          (<code>http://127.0.0.1:11434</code> by default). INTLLM detects the daemon, lists,
+          pulls and deletes models, streams chat and reports health — and never bundles or
+          silently installs Ollama itself.
+        </p>
+        <p>
+          The model list comes from your actual Ollama inventory — Qwen, Llama, DeepSeek,
+          Gemma, Mistral and other compatible families work in principle. If Ollama is
+          unavailable, API calls fail with a clear <code>503 service_unavailable</code> —
+          never fabricated output.
+        </p>
+      </section>
+
+      <section aria-labelledby="hw-title">
+        <div class="section-head"><span class="index">06</span><h2 id="hw-title">Hardware tiers</h2></div>
+        <p>
+          INTLLM ranks installed models against your detected CPU, RAM and GPU/VRAM budget
+          using three recommendation tiers. They are <strong>recommendation categories, not
+          strict restrictions</strong> — what matters is fitting a model's memory requirement
+          inside your VRAM/RAM budget.
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Tier</th><th>Typical hardware</th><th>Guidance</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Potato</strong></td>
+                <td>Low-end, iGPU, older machines</td>
+                <td>Small quantized models, low memory usage, smaller context.</td>
+              </tr>
+              <tr>
+                <td><strong>Nutral</strong></td>
+                <td>Balanced / mid-range</td>
+                <td>7B–14B-class options where hardware permits, moderate context.</td>
+              </tr>
+              <tr>
+                <td><strong>I Paid for My Whole PC</strong></td>
+                <td>High-end</td>
+                <td>Larger models, larger context, heavier agent workflows.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          Hardware detection uses <code>psutil</code> and <code>nvidia-smi</code> when present;
+          values that cannot be detected are shown as N/A rather than invented.
+        </p>
+      </section>
+
+      <section aria-labelledby="api-title">
+        <div class="section-head"><span class="index">07</span><h2 id="api-title">OpenAI-compatible local API</h2></div>
+        <p>
+          Point any OpenAI-compatible client at <code>http://127.0.0.1:8000/v1</code> with an
+          INTLLM API key. Requests route through the same orchestrator as the UI — memory and
+          security aware, not a bypass.
+        </p>
+        <div class="code-block">
+          <span class="lang">Endpoints</span>
+          <pre><code>GET  /v1/models
+GET  /v1/models/{model}
+POST /v1/chat/completions          # stream: false (JSON) | true (SSE)</code></pre>
+        </div>
+        <p>
+          INTLLM-specific request fields: <code>intllm_use_brain</code> (include long-term
+          memory, default on) and <code>intllm_use_web</code> (enable live retrieval for this
+          request, default off). API keys are generated locally, stored as salted scrypt
+          hashes, shown exactly once and revocable at any time.
+        </p>
+        <p>
+          Endpoints that are not implemented — embeddings, responses, audio, images, files,
+          fine-tuning — are not exposed and not documented.
+        </p>
+      </section>
+
+      <section aria-labelledby="security-title">
+        <div class="section-head"><span class="index">08</span><h2 id="security-title">Security &amp; privacy</h2></div>
+        <p>
+          INTLLM is designed to keep data and execution local by default and to make every
+          privileged action explicit — but local does not automatically mean safe; tool
+          permissions and dependencies remain the user's responsibility to configure.
+        </p>
+        <ul class="prose-list">
+          <li>Local API bound to <code>127.0.0.1</code> by default; network exposure is an explicit opt-in.</li>
+          <li>API authentication with salted scrypt key hashes, one-time reveal and revocation.</li>
+          <li>Secrets redacted from logs; no secrets in frontend bundles or release artifacts.</li>
+          <li>No hidden cloud sync, telemetry pipeline or account system — conversations, memory and keys live in your local PostgreSQL.</li>
+          <li>Live web retrieval is off by default and enabled per request; model inference never leaves the machine.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="roadmap-title">
+        <div class="section-head"><span class="index">09</span><h2 id="roadmap-title">Project status &amp; roadmap</h2></div>
+        <p>
+          The current release implements the full local runtime: FastAPI backend, React web UI,
+          PostgreSQL + pgvector memory, Ollama orchestration, tool gateway, OpenAI-compatible
+          API and Windows packaging. Planned work is specified but not shipped — and never
+          presented as such:
+        </p>
+        <ul class="prose-list">
+          <li>Automatic post-response memory learning (candidate → verify → promote)</li>
+          <li>Duplicate detection, memory compression and failure analysis as background jobs</li>
+          <li>Richer browser workflows (form filling, structured page interaction)</li>
+          <li>Memory export/import, additional model adapters, better multi-runtime routing</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="faq-title">
+        <div class="section-head"><span class="index">10</span><h2 id="faq-title">FAQ</h2></div>
+        <div class="faq">
+          <details>
+            <summary>Does INTLLM run locally?</summary>
+            <div class="faq-a">Yes. The backend, database, memory, models and UI run on your machine. The API binds to <code>127.0.0.1</code> by default.</div>
+          </details>
+          <details>
+            <summary>Does INTLLM use Ollama?</summary>
+            <div class="faq-a">Yes — Ollama is the core local model runtime. INTLLM detects the daemon, lists/pulls/deletes models and streams inference through it. Ollama is installed separately; INTLLM never bundles or silently installs it.</div>
+          </details>
+          <details>
+            <summary>Does INTLLM require internet?</summary>
+            <div class="faq-a">No. It works fully offline except for features you explicitly enable: live web retrieval is opt-in per request. Model inference and memory are local.</div>
+          </details>
+          <details>
+            <summary>Where is my data stored?</summary>
+            <div class="faq-a">In your local PostgreSQL database (with pgvector), on your machine. There is no cloud sync and no INTLLM-hosted storage. Windows installs keep runtime data in <code>%LOCALAPPDATA%\INTLLM</code>.</div>
+          </details>
+          <details>
+            <summary>What models can I use?</summary>
+            <div class="faq-a">Whatever your local Ollama installation reports — e.g. Qwen, Llama, DeepSeek or other compatible families. INTLLM does not hardcode or invent models; feature support varies per model.</div>
+          </details>
+          <details>
+            <summary>Does INTLLM retrain models?</summary>
+            <div class="faq-a">No. INTLLM performs low-priority background knowledge maintenance — verification, freshness, index updates, cache cleanup. It never retrains Ollama model weights.</div>
+          </details>
+          <details>
+            <summary>What hardware do I need?</summary>
+            <div class="faq-a">INTLLM gives recommendation tiers — Potato, Nutral, I Paid for My Whole PC — based on detected CPU/RAM/GPU/VRAM. They are recommendations, not restrictions; what matters most is fitting the model's memory requirement within your VRAM/RAM budget.</div>
+          </details>
+          <details>
+            <summary>How do I install INTLLM?</summary>
+            <div class="faq-a">Windows: <code>irm https://intllm.vercel.app/install.ps1 | iex</code> · Linux/macOS: <code>curl -fsSL https://intllm.vercel.app/install.sh | bash</code>. You will also need Ollama and PostgreSQL with pgvector installed separately. See the <a href="/install">install guide</a>.</div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="license-title">
+        <div class="section-head"><span class="index">11</span><h2 id="license-title">License</h2></div>
+        <p>
+          INTLLM is released under the
+          <a href="https://github.com/Alshahriar-07/INTLLM/blob/main/LICENSE" rel="noopener noreferrer">MIT License</a>.
+          Copyright © 2026 Alshahriar-07.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="footer-brand" href="/">
+            <img class="logo logo-light" src="/assets/svg/INTLLM-logo.svg" alt="INTLLM" width="85" height="22" />
+            <img class="logo logo-dark" src="/assets/svg/INTLLM-logo-white.svg" alt="" width="85" height="22" />
+          </a>
+          <p class="footer-note">Local-first AI runtime. Built by Al Shahriar Sowan.</p>
+        </div>
+        <div class="footer-col">
+          <span>Site</span>
+          <a href="/">Home</a>
+          <a href="/info">Info</a>
+          <a href="/download">Download</a>
+          <a href="/install">Install</a>
+        </div>
+        <div class="footer-col">
+          <span>Project</span>
+          <a href="https://github.com/Alshahriar-07/INTLLM" rel="noopener noreferrer">GitHub</a>
+          <a href="https://github.com/Alshahriar-07/INTLLM/releases/latest" rel="noopener noreferrer">Releases</a>
+          <a href="https://github.com/Alshahriar-07/INTLLM/blob/main/LICENSE" rel="noopener noreferrer">License (MIT)</a>
+          <a href="/author">Author</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Al Shahriar Sowan · MIT License</span>
+        <span>v1.0.1</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/site.js" defer></script>
+</body>
+</html>

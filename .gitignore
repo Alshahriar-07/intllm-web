@@ -1,0 +1,50 @@
+# ============================================================
+# INTLLM website — git ignore
+# This repository publishes only the public website.
+# Internal docs and installer sources stay out of it; the
+# canonical copies live in the main INTLLM repository.
+# ============================================================
+
+# Internal documentation & plans — must never be published
+INTLLM-PLAN/
+INTLLM-DATA.md
+README.md
+RELEASE.md
+CHANGELOG.md
+
+# Installer sources (deployable copies live in public/)
+IRM_INSTALL/
+
+# Tool / workspace state
+.freebuff/
+
+# Dependencies & build output
+node_modules/
+dist/
+build/
+out/
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Vercel local state
+.vercel
+
+# Scratch files
+rel.json
+*.tmp

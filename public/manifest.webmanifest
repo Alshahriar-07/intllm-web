@@ -1,0 +1,23 @@
+{
+  "name": "INTLLM",
+  "short_name": "INTLLM",
+  "description": "INTLLM is a local-first AI runtime that gives local Ollama models layered memory, live web retrieval, controlled browser tools and an OpenAI-compatible local API — with your data staying on your machine.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    {
+      "src": "/assets/png/INTLLM-icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/ico/INTLLM.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon",
+      "purpose": "any"
+    }
+  ]
+}

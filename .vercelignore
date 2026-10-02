@@ -1,0 +1,23 @@
+# ============================================================
+# INTLLM website — Vercel deployment ignore
+# Mirrors .gitignore: only the website itself gets deployed.
+# (Defense in depth — vercel.json also sets outputDirectory
+# to public/, so nothing outside it is served.)
+# ============================================================
+
+INTLLM-PLAN/
+INTLLM-DATA.md
+README.md
+RELEASE.md
+CHANGELOG.md
+IRM_INSTALL/
+.freebuff/
+.git/
+.github/
+node_modules/
+dist/
+build/
+out/
+.env
+.env.*
+*.log
