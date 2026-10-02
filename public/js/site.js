@@ -183,22 +183,22 @@
       name: "Windows",
       prompt: ">",
       cmd: "irm https://intllm.vercel.app/install.ps1 | iex",
-      indicator: "PowerShell · Windows 10/11 x64",
-      note: 'Windows 10/11 x64 · Or <a href="/download">Download Setup.exe</a>'
+      indicator: "PowerShell",
+      note: 'Windows 10/11 x64 · <a href="/download">Download</a>'
     },
     macos: {
       name: "macOS",
       prompt: "$",
       cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
-      indicator: "zsh / bash · macOS 12+ (Apple Silicon & Intel)",
-      note: 'macOS universal shell installer · Homebrew / pip compatible'
+      indicator: "zsh",
+      note: 'macOS 12+ · <a href="/download">Download</a>'
     },
     linux: {
       name: "Linux",
       prompt: "$",
       cmd: "curl -fsSL https://intllm.vercel.app/install.sh | bash",
-      indicator: "bash · Linux x64 & arm64",
-      note: 'Linux universal installer · pip install intllm supported'
+      indicator: "bash",
+      note: 'Linux x64 / arm64 · <a href="/download">Download</a>'
     }
   };
 
@@ -408,7 +408,7 @@
           }
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.05, rootMargin: "0px 0px -30px 0px" }
     );
     reveals.forEach(function (el) { revealObserver.observe(el); });
   } else {

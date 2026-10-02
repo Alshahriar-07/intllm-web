@@ -23,9 +23,12 @@
   --accent: #000000;
   --accent-contrast: #FFFFFF;
   --code-bg: #F5F5F5;
-  --terminal-bg: #0A0A0A;
-  --terminal-text: #FFFFFF;
-  --terminal-border: #262626;
+  --terminal-bg: #FAFAFA;
+  --terminal-header-bg: #F5F5F5;
+  --terminal-text: #171717;
+  --terminal-border: #E5E5E5;
+  --terminal-prompt: #737373;
+  --terminal-cursor: #171717;
   --dot-accent: #737373;
 
   /* Ash palette tokens */
@@ -76,9 +79,12 @@ html[data-theme="dark"] {
   --accent: #FFFFFF;
   --accent-contrast: #000000;
   --code-bg: #0A0A0A;
-  --terminal-bg: #050505;
-  --terminal-text: #FFFFFF;
+  --terminal-bg: #0A0A0A;
+  --terminal-header-bg: #141414;
+  --terminal-text: #EDEDED;
   --terminal-border: #262626;
+  --terminal-prompt: #808080;
+  --terminal-cursor: #FFFFFF;
   --dot-accent: #A3A3A3;
 }
 
@@ -566,34 +572,39 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
   justify-content: space-between;
   padding: 10px 16px;
   border-bottom: 1px solid var(--terminal-border);
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--terminal-header-bg);
 }
 
 .terminal-tabs {
   display: flex;
-  gap: 6px;
+  gap: 4px;
 }
 
 .terminal-tab {
   background: none;
-  border: none;
-  color: #737373;
-  font-size: 13px;
+  border: 1px solid transparent;
+  color: var(--text-subtle);
+  font-size: 12.5px;
   font-family: var(--font-sans);
   font-weight: 500;
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: color var(--speed-fast) var(--ease), background-color var(--speed-fast) var(--ease);
+  transition: color var(--speed-fast) var(--ease),
+              background-color var(--speed-fast) var(--ease),
+              border-color var(--speed-fast) var(--ease);
 }
 
 .terminal-tab:hover {
-  color: #D4D4D4;
+  color: var(--text);
+  background-color: var(--bg-muted);
 }
 
 .terminal-tab.is-active {
-  color: #FFFFFF;
-  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  background-color: var(--bg);
+  border-color: var(--border);
+  font-weight: 550;
 }
 
 .terminal-label-wrap {
@@ -606,7 +617,7 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #737373;
+  background-color: var(--dot-accent);
 }
 
 .terminal-title {
@@ -614,14 +625,14 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
   font-size: 11px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #A3A3A3;
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .terminal-os-badge {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #737373;
+  color: var(--text-subtle);
 }
 
 .terminal-body {
@@ -645,15 +656,16 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
 }
 
 .terminal-prompt {
-  color: #737373;
+  color: var(--terminal-prompt);
   user-select: none;
+  font-weight: 500;
 }
 
 .terminal-cursor {
   display: inline-block;
   width: 8px;
   height: 15px;
-  background-color: #FFFFFF;
+  background-color: var(--terminal-cursor);
   margin-left: 2px;
   animation: blinkCursor 0.9s steps(2, start) infinite;
   transition: opacity 300ms var(--ease);
@@ -665,9 +677,9 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
 }
 
 .copy-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #D4D4D4;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  color: var(--text-2);
   padding: 6px 12px;
   font-size: 12px;
   font-family: var(--font-sans);
@@ -677,24 +689,27 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all var(--speed-fast) var(--ease);
+  transition: background-color var(--speed-fast) var(--ease),
+              border-color var(--speed-fast) var(--ease),
+              color var(--speed-fast) var(--ease),
+              transform var(--speed-fast) var(--ease);
   flex-shrink: 0;
 }
 
 .copy-btn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.28);
+  background: var(--bg-muted);
+  color: var(--text);
+  border-color: var(--border-strong);
 }
 
 .copy-btn:active {
-  transform: scale(0.97);
+  transform: translateY(1px) scale(0.97);
 }
 
 .copy-btn.is-copied {
-  background: #FFFFFF;
-  border-color: #FFFFFF;
-  color: #000000;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
   font-weight: 600;
 }
 
@@ -705,16 +720,17 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
   padding: 10px 16px;
   border-top: 1px solid var(--terminal-border);
   font-size: 12px;
-  color: #737373;
+  color: var(--text-subtle);
 }
 
 .terminal-footer-notes a {
-  color: #A3A3A3;
+  color: var(--text-muted);
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color var(--speed-fast) var(--ease);
 }
 .terminal-footer-notes a:hover {
-  color: #FFFFFF;
+  color: var(--text);
 }
 
 /* ---- Buttons ------------------------------------------------------------- */
@@ -763,6 +779,15 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
 }
 .btn--secondary:hover .arrow {
   transform: translateX(3px);
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.985);
+  transition-duration: 60ms;
+}
+
+.btn--primary:active {
+  opacity: 0.8;
 }
 
 /* ---- Section 01: How It Works (Three Feature Blocks & Pipeline) ----------- */
@@ -1597,4 +1622,147 @@ html[data-theme="dark"] .hero-brand-logo.logo-light {
     padding: 9px 10px;
     font-size: 12.5px;
   }
+}
+
+/* ---- Ollama Branding ----------------------------------------------------- */
+.ollama-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+  vertical-align: middle;
+}
+
+.ollama-badge svg,
+.ollama-icon {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  vertical-align: -2px;
+  fill: currentColor;
+}
+
+/* ---- Download & Platform Icons ------------------------------------------- */
+.platform-icon-inline {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: -2px;
+  margin-right: 8px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.platform-meta h3 {
+  display: flex;
+  align-items: center;
+}
+
+/* ---- Author Signature Branding ------------------------------------------- */
+.creator-signature-strip {
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-subtle);
+  border-top: 1px solid var(--border-subtle);
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.creator-signature-text a,
+.footer-author {
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color var(--speed-fast) var(--ease), border-color var(--speed-fast) var(--ease);
+}
+
+.creator-signature-text a:hover,
+.footer-author:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.footer-divider {
+  color: var(--text-subtle);
+  user-select: none;
+}
+
+/* ---- Staggered Section Reveals & Micro-Interactions ---------------------- */
+.reveal-up:nth-child(2) { transition-delay: 40ms; }
+.reveal-up:nth-child(3) { transition-delay: 80ms; }
+.reveal-up:nth-child(4) { transition-delay: 120ms; }
+
+.how-block {
+  transition: transform var(--speed-fast) var(--ease),
+              border-color var(--speed-fast) var(--ease),
+              background-color var(--speed-fast) var(--ease);
+}
+
+.how-block:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.how-block-icon {
+  transition: transform var(--speed-fast) var(--ease);
+}
+
+.how-block:hover .how-block-icon {
+  transform: translateY(-1.5px);
+}
+
+.pipeline-node {
+  transition: transform var(--speed-fast) var(--ease);
+}
+.pipeline-node:hover {
+  transform: translateY(-1.5px);
+}
+
+.layer-row {
+  transition: background-color var(--speed-fast) var(--ease),
+              opacity var(--speed-slow) var(--ease),
+              transform var(--speed-slow) var(--ease);
+}
+
+.platform-row {
+  transition: border-color var(--speed-fast) var(--ease),
+              transform var(--speed-fast) var(--ease);
+}
+.platform-row:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+.author-link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  padding: 10px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all var(--speed-fast) var(--ease);
+}
+.author-link-item:hover {
+  border-color: var(--border-strong);
+  background-color: var(--bg-subtle);
+  transform: translateY(-2px);
+}
+.author-link-item:active {
+  transform: translateY(1px) scale(0.98);
+}
+.author-link-item .arrow {
+  transition: transform var(--speed-fast) var(--ease);
+}
+.author-link-item:hover .arrow {
+  transform: translateX(3px);
 }
