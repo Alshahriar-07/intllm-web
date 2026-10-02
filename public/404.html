@@ -3,60 +3,77 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Page not found — INTLLM</title>
+  <title>404 — Page Not Found — INTLLM</title>
   <meta name="robots" content="noindex" />
-  <link rel="canonical" href="https://intllm.vercel.app/" />
 
-  <meta name="theme-color" content="#ffffff" />
+  <!-- Favicons -->
+  <meta name="theme-color" content="#FFFFFF" />
   <link rel="icon" href="/assets/ico/INTLLM.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="256x256" href="/assets/png/INTLLM-icon-256.png" />
 
+  <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="/css/site.css" />
 
   <script>
     (function () {
       try {
-        var stored = localStorage.getItem("intllm-theme");
-        var theme = stored === "dark" || stored === "light"
-          ? stored
-          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      } catch (e) { /* no storage; default stays light */ }
+        var s = localStorage.getItem("intllm-theme");
+        var t = s === "dark" || s === "light" ? s : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
     })();
   </script>
 </head>
 <body>
   <header class="site-header">
-    <div class="container">
+    <div class="container nav-container">
       <a class="brand" href="/" aria-label="INTLLM home">
-        <img class="logo logo-light" src="/assets/svg/INTLLM-logo.svg" alt="INTLLM" width="109" height="28" />
-        <img class="logo logo-dark" src="/assets/svg/INTLLM-logo-white.svg" alt="" width="109" height="28" />
+        <img class="brand-logo logo-light" src="/assets/png/INTLLM-logo-transparent.png" alt="INTLLM" width="96" height="24" />
+        <img class="brand-logo logo-dark" src="/assets/png/INTLLM-logo-white.png" alt="INTLLM" width="96" height="24" />
       </a>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <svg class="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 9.03A5.5 5.5 0 0 1 6.97 2.5a5.5 5.5 0 1 0 6.53 6.53Z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3.25"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M12.6 3.4l-1.06 1.06M4.46 11.54 3.4 12.6"/></svg>
+      </button>
     </div>
   </header>
 
   <main id="main">
-    <div class="container">
-      <div class="error-page">
-        <span class="code" aria-hidden="true">404</span>
-        <h1>Page not found</h1>
-        <p>The page you are looking for does not exist on this site.</p>
-        <div class="hero-ctas">
-          <a class="btn btn--primary" href="/">Go home</a>
-          <a class="btn btn--secondary" href="/info">Info</a>
-        </div>
+    <div class="container container--narrow" style="padding-top: 100px; padding-bottom: 120px;">
+      <p class="section-label">404</p>
+      <h1 class="hero-title" style="margin-bottom: 16px;">Page not found</h1>
+      <p class="prose" style="margin-bottom: 32px;">
+        The requested resource does not exist or has moved.
+      </p>
+      <div style="display: flex; gap: 12px;">
+        <a class="btn btn--primary" href="/">
+          <span>Return Home</span>
+          <span class="arrow">→</span>
+        </a>
+        <a class="btn btn--secondary" href="/info">
+          <span>Documentation</span>
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
   </main>
 
   <footer class="site-footer">
-    <div class="container">
-      <div class="footer-bottom">
-        <span>© 2026 Al Shahriar Sowan · MIT License</span>
-        <span><a href="https://github.com/Alshahriar-07/INTLLM" rel="noopener noreferrer">GitHub</a> · v1.0.1</span>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">INTLLM</span>
+        <span>Built by Al Shahriar Sowan</span>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/">Home</a>
+        <a class="footer-link" href="/info">Info</a>
+        <a class="footer-link" href="/download">Download</a>
+      </div>
+      <div>
+        <span>© 2026 INTLLM</span>
       </div>
     </div>
   </footer>

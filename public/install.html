@@ -3,257 +3,140 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Install INTLLM</title>
-  <meta name="description" content="Install INTLLM in one line on Windows (PowerShell) or Linux/macOS (shell), or manually with pip. Verify SHA256 checksums, then run intllm doctor to check Ollama and PostgreSQL readiness." />
+  <title>Install INTLLM — Windows, macOS &amp; Linux</title>
+  <meta name="description" content="One-line install commands and setup instructions for INTLLM across Windows, macOS, and Linux." />
   <link rel="canonical" href="https://intllm.vercel.app/install" />
 
+  <!-- Open Graph -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="INTLLM" />
-  <meta property="og:title" content="Install INTLLM" />
-  <meta property="og:description" content="Install INTLLM in one line on Windows (PowerShell) or Linux/macOS (shell), or manually with pip. Verify SHA256 checksums, then run intllm doctor to check Ollama and PostgreSQL readiness." />
+  <meta property="og:title" content="Install INTLLM — Windows, macOS &amp; Linux" />
+  <meta property="og:description" content="One-line install commands and setup instructions for INTLLM." />
   <meta property="og:url" content="https://intllm.vercel.app/install" />
   <meta property="og:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Install INTLLM" />
-  <meta name="twitter:description" content="Install INTLLM in one line on Windows (PowerShell) or Linux/macOS (shell), or manually with pip." />
-  <meta name="twitter:image" content="https://intllm.vercel.app/assets/banners/INTLLM-open-graph-1200x630.png" />
 
-  <meta name="theme-color" content="#ffffff" />
+  <!-- Favicons -->
+  <meta name="theme-color" content="#FFFFFF" />
   <link rel="icon" href="/assets/ico/INTLLM.ico" sizes="any" />
   <link rel="icon" type="image/png" sizes="256x256" href="/assets/png/INTLLM-icon-256.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
 
+  <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="/css/site.css" />
 
   <script>
     (function () {
       try {
-        var stored = localStorage.getItem("intllm-theme");
-        var theme = stored === "dark" || stored === "light"
-          ? stored
-          : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-        document.documentElement.setAttribute("data-theme", theme);
-      } catch (e) { /* no storage; default stays light */ }
+        var s = localStorage.getItem("intllm-theme");
+        var t = s === "dark" || s === "light" ? s : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
+      } catch (e) {}
     })();
-  </script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "Install INTLLM",
-    "url": "https://intllm.vercel.app/install",
-    "isPartOf": { "@type": "WebSite", "name": "INTLLM", "url": "https://intllm.vercel.app/" }
-  }
   </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
+  <!-- Header -->
   <header class="site-header">
-    <div class="container">
+    <div class="container nav-container">
       <a class="brand" href="/" aria-label="INTLLM home">
-        <img class="logo logo-light" src="/assets/svg/INTLLM-logo.svg" alt="INTLLM" width="109" height="28" />
-        <img class="logo logo-dark" src="/assets/svg/INTLLM-logo-white.svg" alt="" width="109" height="28" />
+        <img class="brand-logo logo-light" src="/assets/png/INTLLM-logo-transparent.png" alt="INTLLM" width="96" height="24" />
+        <img class="brand-logo logo-dark" src="/assets/png/INTLLM-logo-white.png" alt="INTLLM" width="96" height="24" />
       </a>
+
       <nav class="site-nav" aria-label="Primary">
-        <a href="/info">Info</a>
-        <a href="/download">Download</a>
-        <a href="/install" aria-current="page">Install</a>
-        <a class="nav-github" href="https://github.com/Alshahriar-07/INTLLM" rel="noopener noreferrer">
-          <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+        <a class="nav-link" href="/info">Info</a>
+        <a class="nav-link" href="/download">Download</a>
+        <a class="nav-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">
           <span>GitHub</span>
+          <svg class="nav-github-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
         </a>
-        <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
-          <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 9.03A5.5 5.5 0 0 1 6.97 2.5a5.5 5.5 0 1 0 6.53 6.53Z"/></svg>
-          <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3.25"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M12.6 3.4l-1.06 1.06M4.46 11.54 3.4 12.6"/></svg>
+
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <svg class="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 9.03A5.5 5.5 0 0 1 6.97 2.5a5.5 5.5 0 1 0 6.53 6.53Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="3.25"/><path d="M8 1.25v1.5M8 13.25v1.5M1.25 8h1.5M13.25 8h1.5M3.4 3.4l1.06 1.06M11.54 11.54l1.06 1.06M12.6 3.4l-1.06 1.06M4.46 11.54 3.4 12.6"/></svg>
         </button>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <div class="container">
-      <div class="page-head">
-        <p class="eyebrow">Install</p>
-        <h1>Install INTLLM</h1>
-        <p class="lede">
-          The installers download the correct release artifact from
-          <a href="https://github.com/Alshahriar-07/INTLLM/releases/latest" rel="noopener noreferrer">GitHub Releases</a>,
-          verify its SHA256 checksum against the published <code>SHA256.txt</code>, and install
-          INTLLM for the current user.
-        </p>
+    <div class="container container--narrow" style="padding-top: 56px; padding-bottom: 96px;">
+      <p class="section-label reveal-up">Quickstart</p>
+      <h1 class="hero-title reveal-up" style="margin-bottom: 12px;">Install INTLLM</h1>
+      <p class="prose reveal-up">
+        Official release installers download, verify checksums via <code>SHA256.txt</code>, and register the <code>intllm</code> CLI in your environment.
+      </p>
+
+      <!-- Terminal widget -->
+      <div class="terminal-box reveal-up" style="margin-top: 36px; margin-bottom: 48px;">
+        <div class="terminal-header">
+          <div class="terminal-tabs" role="tablist" aria-label="Select OS">
+            <button class="terminal-tab is-active" data-os="windows" role="tab" aria-selected="true" type="button">Windows</button>
+            <button class="terminal-tab" data-os="macos" role="tab" aria-selected="false" type="button">macOS</button>
+            <button class="terminal-tab" data-os="linux" role="tab" aria-selected="false" type="button">Linux</button>
+          </div>
+          <span style="font-family: var(--font-mono); font-size: 11px; color: #737373;">Terminal</span>
+        </div>
+
+        <div class="terminal-body">
+          <div class="terminal-command">
+            <span class="terminal-prompt" id="install-prompt">$</span>
+            <span id="install-cmd">irm https://intllm.vercel.app/install.ps1 | iex</span>
+          </div>
+          <button class="copy-btn" type="button" data-copy="#install-cmd" aria-label="Copy installation command">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+            <span>Copy</span>
+          </button>
+        </div>
+
+        <div class="terminal-footer-notes">
+          <span id="terminal-platform-note">Windows 10/11 x64 · Or <a href="/download">Download Setup.exe</a></span>
+          <span>SHA256 verified</span>
+        </div>
       </div>
 
-      <section aria-label="Install instructions">
-        <div class="tabs">
-          <div class="tablist" role="tablist" aria-label="Choose your platform">
-            <button role="tab" id="tab-windows" aria-controls="panel-windows" aria-selected="true" type="button">Windows</button>
-            <button role="tab" id="tab-macos" aria-controls="panel-macos" aria-selected="false" tabindex="-1" type="button">macOS</button>
-            <button role="tab" id="tab-linux" aria-controls="panel-linux" aria-selected="false" tabindex="-1" type="button">Linux</button>
-            <button role="tab" id="tab-manual" aria-controls="panel-manual" aria-selected="false" tabindex="-1" type="button">Manual / pip</button>
-          </div>
-
-          <div class="tabpanel" id="panel-windows" role="tabpanel" aria-labelledby="tab-windows">
-            <div class="step">
-              <p class="step-label">1 — Run the one-line installer (PowerShell)</p>
-              <div class="code-block">
-                <span class="lang">PowerShell</span>
-                <pre><code id="cmd-in-win">irm https://intllm.vercel.app/install.ps1 | iex</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-win" aria-label="Copy Windows install command">Copy</button>
-              </div>
-              <p class="note">
-                Downloads <code>INTLLM-windows-x64.exe</code>, verifies its SHA256, installs under
-                <code>%LOCALAPPDATA%\Programs\INTLLM</code>, adds it to your user PATH and creates
-                a Start Menu shortcut. Runtime data lives separately in
-                <code>%LOCALAPPDATA%\INTLLM</code> and survives upgrades and uninstall.
-              </p>
-            </div>
-            <div class="step">
-              <p class="step-label">2 — Verify and start</p>
-              <div class="code-block">
-                <span class="lang">PowerShell</span>
-                <pre><code id="cmd-in-win-start">INTLLM --version
-INTLLM doctor
-INTLLM</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-win-start" aria-label="Copy Windows verification and start commands">Copy</button>
-              </div>
-              <p class="note">
-                Open a new terminal so the updated PATH is picked up. <code>INTLLM doctor</code>
-                checks PostgreSQL, pgvector and Ollama readiness.
-              </p>
-            </div>
-          </div>
-
-          <div class="tabpanel" id="panel-macos" role="tabpanel" aria-labelledby="tab-macos" hidden>
-            <div class="step">
-              <p class="step-label">1 — Run the installer (requires Python 3.11+)</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-mac">curl -fsSL https://intllm.vercel.app/install.sh | bash</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-mac" aria-label="Copy macOS install command">Copy</button>
-              </div>
-              <p class="note">
-                Downloads the universal wheel <code>intllm-0.4.2-py3-none-any.whl</code>, verifies
-                its SHA256, installs it into an isolated virtual environment at
-                <code>~/.intllm</code> and exposes an <code>intllm</code> command in
-                <code>~/.local/bin</code>.
-              </p>
-            </div>
-            <div class="step">
-              <p class="step-label">2 — Verify and start</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-mac-start">intllm --version
-intllm doctor
-intllm</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-mac-start" aria-label="Copy macOS verification and start commands">Copy</button>
-              </div>
-              <p class="note">If <code>intllm</code> is not found, open a new shell so the PATH edit applies.</p>
-            </div>
-          </div>
-
-          <div class="tabpanel" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" hidden>
-            <div class="step">
-              <p class="step-label">1 — Run the installer (requires Python 3.11+)</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-linux">curl -fsSL https://intllm.vercel.app/install.sh | bash</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-linux" aria-label="Copy Linux install command">Copy</button>
-              </div>
-              <p class="note">
-                Same flow as macOS: checksum-verified wheel, isolated venv at
-                <code>~/.intllm</code>, wrapper script in <code>~/.local/bin</code>. Set
-                <code>INTLLM_NO_PATH_EDIT=1</code> to skip shell rc edits.
-              </p>
-            </div>
-            <div class="step">
-              <p class="step-label">2 — Verify and start</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-linux-start">intllm --version
-intllm doctor
-intllm</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-linux-start" aria-label="Copy Linux verification and start commands">Copy</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="tabpanel" id="panel-manual" role="tabpanel" aria-labelledby="tab-manual" hidden>
-            <div class="step">
-              <p class="step-label">Install with pip (from a release wheel / PyPI when published)</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-pip">python -m pip install intllm</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-pip" aria-label="Copy pip install command">Copy</button>
-              </div>
-              <p class="note">
-                Console scripts: <code>intllm</code> (CLI) and <code>intllm-api</code> (API server).
-                Requires Python 3.11+.
-              </p>
-            </div>
-            <div class="step">
-              <p class="step-label">From source (development)</p>
-              <div class="code-block">
-                <span class="lang">Shell</span>
-                <pre><code id="cmd-in-src">git clone https://github.com/Alshahriar-07/INTLLM.git
-cd INTLLM
-npm install &amp;&amp; npm run build
-python -m pip install -e "./backend[dev]"</code></pre>
-                <button class="copy-btn" type="button" data-copy="#cmd-in-src" aria-label="Copy from-source development install commands">Copy</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section aria-labelledby="after-title">
-        <div class="section-head"><span class="index">01</span><h2 id="after-title">After installing</h2></div>
-        <ol class="prose-list">
-          <li>Install <a href="https://ollama.com" rel="noopener noreferrer">Ollama</a> and pull at least one model — INTLLM detects the daemon automatically.</li>
-          <li>Install PostgreSQL 14+ with the <strong>pgvector</strong> extension — INTLLM verifies reachability and schema on startup.</li>
-          <li>Run <code>intllm doctor</code> to check readiness, then <code>intllm</code> to start the runtime; the web UI opens in your browser.</li>
-          <li>Pull or select a model in <strong>Models</strong>, create an API key in <strong>Settings → API</strong>, and start chatting.</li>
-        </ol>
-        <p>
-          INTLLM does not bundle or silently install Ollama or PostgreSQL — it detects and
-          reports their state honestly at startup.
+      <!-- Manual install section -->
+      <div class="reveal-up">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Manual / pip installation</h2>
+        <p class="prose" style="margin-bottom: 16px;">
+          For developers running within customized Python virtual environments (Python 3.11+):
         </p>
-      </section>
+        <div class="code-card">
+          <pre><code>pip install intllm
+intllm doctor</code></pre>
+        </div>
+      </div>
+
+      <!-- Readiness doctor -->
+      <div class="reveal-up" style="margin-top: 36px;">
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">Verifying Readiness</h2>
+        <p class="prose">
+          After installation, run <code>intllm doctor</code> in your shell. It checks connection to your local Ollama daemon and local PostgreSQL database with pgvector, reporting any misconfigurations transparently.
+        </p>
+      </div>
     </div>
   </main>
 
+  <!-- Footer -->
   <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <a class="footer-brand" href="/">
-            <img class="logo logo-light" src="/assets/svg/INTLLM-logo.svg" alt="INTLLM" width="85" height="22" />
-            <img class="logo logo-dark" src="/assets/svg/INTLLM-logo-white.svg" alt="" width="85" height="22" />
-          </a>
-          <p class="footer-note">Local-first AI runtime. Built by Al Shahriar Sowan.</p>
-        </div>
-        <div class="footer-col">
-          <span>Site</span>
-          <a href="/">Home</a>
-          <a href="/info">Info</a>
-          <a href="/download">Download</a>
-          <a href="/install">Install</a>
-        </div>
-        <div class="footer-col">
-          <span>Project</span>
-          <a href="https://github.com/Alshahriar-07/INTLLM" rel="noopener noreferrer">GitHub</a>
-          <a href="https://github.com/Alshahriar-07/INTLLM/releases/latest" rel="noopener noreferrer">Releases</a>
-          <a href="https://github.com/Alshahriar-07/INTLLM/blob/main/LICENSE" rel="noopener noreferrer">License (MIT)</a>
-          <a href="/author">Author</a>
-        </div>
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">INTLLM</span>
+        <span>Built by Al Shahriar Sowan</span>
       </div>
-      <div class="footer-bottom">
-        <span>© 2026 Al Shahriar Sowan · MIT License</span>
-        <span>v1.0.1</span>
+      <div class="footer-links">
+        <a class="footer-link" href="https://github.com/Alshahriar-07/INTLLM" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="footer-link" href="/info">Info</a>
+        <a class="footer-link" href="/download">Download</a>
+        <a class="footer-link" href="/author">Author</a>
+      </div>
+      <div>
+        <span>© 2026 INTLLM</span>
       </div>
     </div>
   </footer>
