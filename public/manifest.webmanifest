@@ -8,15 +8,15 @@
   "theme_color": "#050505",
   "icons": [
     {
-      "src": "/assets/png/INTLLM-icon-256.png",
-      "sizes": "256x256",
-      "type": "image/png",
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
       "purpose": "any"
     },
     {
-      "src": "/assets/ico/INTLLM.ico",
+      "src": "/assets/png/INTLLM-icon-256.png",
       "sizes": "256x256",
-      "type": "image/x-icon",
+      "type": "image/png",
       "purpose": "any"
     }
   ]
